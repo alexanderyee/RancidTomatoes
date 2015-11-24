@@ -10,7 +10,6 @@ CREATE TABLE reviews (
 
 CREATE TABLE reviewers (
 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	username varchar(64) NOT NULL,
 	firstname varchar(64) NOT NULL,
 	lastname varchar(64) NOT NULL,
 	publication varchar(64) NOT NULL
@@ -32,3 +31,13 @@ CREATE TABLE users (
 	username varchar(64) NOT NULL,
 	hash varchar(255) NOT NULL default ''
 );
+INSERT INTO movies(title, director, year, image_file_name, rating, runtime, boxOffice) VALUES('TMNT', 'Kevin Munroe', 2000, 'overview.png', 'PG', 90, 54132596);
+INSERT INTO users(username, hash) VALUES('xx420kushmaster69xx', 'ayy lmao');
+INSERT INTO reviewers(firstname, lastname, publication) VALUES('Bojack', 'Horseman', 'The Secretariat');
+INSERT INTO reviews(review, reviewer_id, rating, title)
+VALUES('This is the biggest waste of 90 minutes you could ever possibly spend in your lifetime. I\'m not joking, this is horses**t.', 1, 'rotten', 'TMNT');
+SELECT firstname, lastname, publication, review, rating FROM
+reviewers
+JOIN reviews
+ON reviewers.id = reviews.reviewer_id
+WHERE reviews.title = 'TMNT';
