@@ -1,22 +1,22 @@
 CREATE DATABASE movies;
 USE movies;
-CREATE TABLE reviews {
+CREATE TABLE reviews (
 	added      datetime DEFAULT NOW(),
 	review     varchar(2000) not null,
 	reviewer_id int(6) unsigned not null,
 	rating     varchar(64) not null,
 	title      varchar(100) not null
-};
+);
 
-CREATE TABLE reviewers {
+CREATE TABLE reviewers (
 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	username varchar(64) NOT NULL,
 	firstname varchar(64) NOT NULL,
 	lastname varchar(64) NOT NULL,
 	publication varchar(64) NOT NULL
-};
+);
 
-CREATE TABLE movies {
+CREATE TABLE movies (
 	title     varchar(100) not null PRIMARY KEY,
 	director  varchar(100) not null,
 	year	  int not null,
@@ -25,11 +25,10 @@ CREATE TABLE movies {
 	runtime   int not null,
 	boxOffice bigint not null
 
-};
+);
 
 CREATE TABLE users (
 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	username varchar(64) NOT NULL,
 	hash varchar(255) NOT NULL default ''
 );
-INSERT INTO reviews 
