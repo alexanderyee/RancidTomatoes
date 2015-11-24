@@ -1,12 +1,11 @@
 CREATE DATABASE movies;
 USE movies;
 CREATE TABLE reviews {
-	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	added      datetime DEFAULT NOW(),
 	review     varchar(2000) not null,
-	reviewerid int(6) unsigned not null,
+	reviewer_id int(6) unsigned not null,
 	rating     varchar(64) not null,
-	movie      varchar(100) not null
+	title      varchar(100) not null
 };
 
 CREATE TABLE reviewers {
@@ -33,4 +32,4 @@ CREATE TABLE users (
 	username varchar(64) NOT NULL,
 	hash varchar(255) NOT NULL default ''
 );
-INSERT INTO reviews
+INSERT INTO reviews 
