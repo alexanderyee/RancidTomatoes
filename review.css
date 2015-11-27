@@ -1,0 +1,166 @@
+/*Name: Bijan Anjavi
+  Course: CSC 337
+  TA(s): Hasanain Jamal, Dilan Jenkins
+  Description: Styling sheet for movie.php
+
+
+
+
+  STILL A LOT TO FIX, WITH ALIGNING FORMS INPUTS STYLE ETC - FIX AFTER DATABASE + PHP
+ */
+
+body {
+  background-image: url("images/moviebg.png");
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  margin: 0px;
+  padding: 0px;
+}
+#banner {
+  background-image: url("images/rancidbannerbg.png");
+  background-repeat: repeat-x;
+  background-size: 100% 50px;
+}
+#banner img {
+  width: auto;
+  height: 50px;
+  display: block;
+  margin: auto;
+}
+h1 {
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24pt;
+  font-weight: bold;
+  text-shadow: 3px 3px #999999;
+}
+#overallcontent {
+  width: 800px;
+  display: block;
+  /*automatic for divs*/
+  height: auto;
+  margin: auto;
+  border-radius: 20px;
+  box-shadow: 5px 5px 5px #888888;
+  /*box shadow helps it look a bit more like the picture*/
+  overflow: hidden;
+  background-color: #EEEEEE;
+  /*utilize cascading to add in background for right-side general overview later*/
+}
+#reviews-overall {
+  width: 550px;
+  height: auto;
+  overflow: hidden;
+  background-color: #EEEEEE;
+  display: inline-block;
+}
+#reviews-header {
+  background-image: url("images/rottenlargebg.png");
+  background-repeat: repeat;
+  background-size: 100% 83px;
+  color: red;
+  font-weight: bold;
+  font-size: 48pt;
+  display: block;
+  overflow: hidden;
+}
+#reviews-header img {
+  width: auto;
+  height: 83px;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+.column {
+  float: left;
+  width: 46%;
+  /*47% is too large*/
+  padding: 2%;
+  height: 100%;
+  background-color: #EEEEEE;
+  overflow: hidden;
+}
+.review {
+  font-size: 10pt;
+  margin-top: 20pt;
+  margin-bottom: 20pt;
+}
+.quote {
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  border: 2px solid #CCCCCC;
+  font-family: Georgia, "Times New Roman", serif;
+  padding: 8px;
+  overflow: hidden;
+}
+.quote img {
+  padding-right: 5px;
+  float: left;
+  overflow: hidden;
+}
+.reviewer img {
+  float: left;
+  padding-right: 5px;
+  overflow: hidden;
+}
+#general-overview {
+  width: 250px;
+  display: inline-block;
+  float: right;
+  height: auto;
+  overflow: hidden;
+  background-color: #A2B964;
+}
+#general-overview dl {
+  padding-left: 10pt;
+  padding-right: 10pt;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+}
+#general-overview dt {
+  font-weight: bold;
+  padding-top: 10pt;
+}
+#general-overview ul {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
+}
+#footer {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin: 0px;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #A2B964;
+  clear: both;
+}
+#bottom-reviews-header {
+  background-image: url("images/rottenlargebg.png");
+  background-repeat: repeat;
+  background-size: 100% 83px;
+  color: red;
+  font-weight: bold;
+  font-size: 48pt;
+  display: block;
+  overflow: hidden;
+}
+#bottom-reviews-header img {
+  width: auto;
+  height: 83px;
+  vertical-align: bottom;
+  overflow: hidden;
+}
+#bottom-banner {
+  background-image: url("images/rancidbannerbg.png");
+  background-repeat: repeat-x;
+  background-size: 100% 50px;
+  margin-top: 20px;
+}
+#bottom-banner img {
+  width: auto;
+  height: 50px;
+  display: block;
+  margin: auto;
+}
