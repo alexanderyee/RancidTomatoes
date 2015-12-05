@@ -44,14 +44,14 @@ elseif (isset ( $_POST ['logout'] )) {
 	$year = $_POST ['newYear'];
 	$runtime = $_POST ['newRuntime'];
 	$boxOffice = $_POST ['newBoxOffice'];
-	$modelMethods->addNewMovie($title, $filename, $director, $mpaa, $score, $year, $runtime, $boxOffice);
+	$modelMethods->addNewMovie($title, $director, $mpaa, $score, $year, $runtime, $boxOffice);
 	header ( "Location: review.php" ); 
 } elseif (isset ($_POST ['reviewTitle'])) {
 	$title = $_POST ['reviewTitle'];
 	$review = $_POST ['reviewReview'];
 	$rating = $_POST ['rating'];
-	$modelMethods->addReview($title, /*reviewerID?*/ $review, $rating);
+	$modelMethods->addReview($title, "1"/*reviewerID?*/, $review, $rating);
 	header ("Location: review.php")
-}
+} 
 
 ?>

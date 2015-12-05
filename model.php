@@ -1,5 +1,4 @@
 <?php
-
 class Model {
   private $conn;
   /*Description: constructor for the Model class, used to assign instance variable to the database. */
@@ -34,12 +33,11 @@ class Model {
 		$array = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		return $array;
 	}
-  public function addNewMovie($title, $filename, $director, $mpaa, $score, $year, $runtime, $boxOffice){
+  public function addNewMovie($title, $director, $mpaa, $score, $year, $runtime, $boxOffice){
   	$stmt = $this->conn->prepare (
-				"INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice)
-				VALUES(:title, :filename, :director, :mpaa, :score, :year, :runtime, :boxOffice); ");
+				"INSERT INTO titles(title, director, mpaaRating, score, year, runtime, boxOffice)
+				VALUES(:title, :director, :mpaa, :score, :year, :runtime, :boxOffice); ");
 		$stmt->bindParam ( 'title', $title );
-		$stmt->bindParam ( 'filename', $filename );
 		$stmt->bindParam ( 'director', $director );
 		$stmt->bindParam ( 'mpaa', $mpaa );
 		$stmt->bindParam ( 'score', $score );
@@ -71,14 +69,13 @@ class Model {
   public function exists($title){
   // search key in titles, returns true if exists
   	$stmt = $this->conn->prepare ( 'SELECT * FROM titles WHERE title = :title' );
-			$stmt->bindParam ( 'title', $title );
-			$stmt->execute ();
-			$stmt->fetch ();
-
-			if ($stmt->rowCount () === 0)
-				return TRUE;
-			else
-				return FALSE;
+	$stmt->bindParam ( 'title', $title );
+	$stmt->execute ();
+	$stmt->fetch ();
+	if ($stmt->rowCount () === 0)
+		return TRUE;
+	else
+		return FALSE;
   }
   public function reviewGif($reviewRating) {
     if($reviewRating == "FRESH"){
@@ -88,6 +85,35 @@ class Model {
         $reviewImage = "images/rotten.gif";
       }
     return $reviewImage;
+  }
+  public function verify($username, $password) {
+  	$stmt = $this->conn->prepare ( 'SELECT hash FROM users WHERE username = :username' );
+	$stmt->bindParam ( ':username', $username );
+	$stmt->execute ();
+	$user = $stmt->fetch ();
+	// Hashing the password with its hash as the salt returns the same hash
+	if (password_verify ( $password, $user ['hash'] ))
+		return TRUE;
+	else
+		return FALSE;
+  }
+  public function register($username, $password) {
+  	$hash = password_hash ( $password, PASSWORD_DEFAULT );
+	$sth = $this->conn->prepare ( "INSERT INTO users (username, hash) VALUES ( :username, :hash);" );
+	$sth->bindParam ( ':username', $username );
+	$sth->bindParam ( ':hash', $hash );
+	$sth->execute ();
+  }
+  public function usernameExists($username){ // returns true if username exists in users
+  	$stmt = $this->conn->prepare ( 'SELECT * FROM users WHERE username = :username' );
+	$stmt->bindParam ( ':username', $username );
+	$stmt->execute ();
+	$stmt->fetch ();
+	// Hashing the password with its hash as the salt returns the same hash
+	if ($stmt->rowCount () === 0)
+		return FALSE;
+	else
+		return TRUE;
   }
 }
 ?>
