@@ -37,7 +37,7 @@ class Model {
 	}
 
   public function addNewMovie($title, $filename, $director, $mpaa, $score, $year, $runtime, $boxOffice){
-  	$stmt = $this->DB->prepare (
+  	$stmt = $this->conn->prepare (
 				"INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) 
 				VALUES(:title, :filename, :director, :mpaa, :score, :year, :runtime, :boxOffice); ");
 		$stmt->bindParam ( 'title', $title );
@@ -51,7 +51,7 @@ class Model {
 		$stmt->execute ();		
   }
   public function addReview($title, $ID, $review, $rating){
-  	$stmt = $this->DB->prepare (
+  	$stmt = $this->conn->prepare (
 				"INSERT INTO reviews(title, reviewerID, review, rating) 
 				VALUES(:title, :ID, :review, :rating); ");
 		$stmt->bindParam ( 'title', $title );
@@ -61,7 +61,7 @@ class Model {
 		$stmt->execute ();
   }
   public function getOverallInfoFor($title){ 
-  	$stmt = $this->DB->prepare (
+  	$stmt = $this->conn->prepare (
 				"SELECT imageFileName, director, mpaaRating, score, year, runtime, boxOffice
 				 FROM titles
 				 WHERE title = :title" );
@@ -72,7 +72,7 @@ class Model {
   }
   public function exists($title){ 
   // search key in titles, returns true if exists
-  	$stmt = $this->DB->prepare ( 'SELECT * FROM titles WHERE title = :title' );
+  	$stmt = $this->conn->prepare ( 'SELECT * FROM titles WHERE title = :title' );
 			$stmt->bindParam ( 'title', $title );
 			$stmt->execute ();
 			$stmt->fetch ();
