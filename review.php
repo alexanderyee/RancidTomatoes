@@ -13,7 +13,7 @@
 <head>
 	<title>Rancid Tomatoes</title>
 	<meta charset="utf-8" />
-	<link href="css/review.css" rel="stylesheet" type="text/css">
+	<link href="review.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -25,7 +25,6 @@
 	$title = trim($_POST["searchKey"]);
 	$modelMethods = new Model();
 	$exists = $modelMethods->exists($title);
-	echo $exists;
 	if($exists == 1){
 		session_start();
 		$_SESSION["searchKey"] = $_POST["searchKey"];
@@ -34,7 +33,6 @@
 	}
 
 	$overallInfo = $modelMethods->getOverallInfoFor($title);
-
 
   $overviewImageFileName = $overallInfo['imageFileName'];
 	$director = $overallInfo['director'];
@@ -61,34 +59,36 @@
 				<img src=<?= $scoreImage ?>  alt= <?= $scoreImageAlt ?> /> <?= $score . "%" ?>
 			</div>
 			<?php //set up how to divide reviews amongst columns
-			$reviewFiles = glob($movie . "/" . "review*.txt");
-			$N = count($reviewFiles);
+			$reviews = $modelMethods->getReviewsFor($title);
+			$N = count($reviews);
+
 			$maxLeftColumn = ceil($N/2); //how many to store in left column, which takes priority
 			$leftColumnCount = 0;
 			$rightColumnCount = 0;
 			?>
 			<div class="column">
 				<?php
-				foreach($reviewFiles as $reviewFileName) {
-					if(count(file($reviewFileName)) < 4){ //case where there is no source/organization for review
-						$reviewSource = "";
-						list($reviewText, $reviewRating, $reviewAuthor) = file($reviewFileName);
-					}
-					else{
-						list($reviewText, $reviewRating, $reviewAuthor, $reviewSource) = file($reviewFileName);
-					}
+				foreach($reviews as $review) {
+				$reviewRating = trim($review['rating']);
+				$reviewText = trim($review['review']);
+				$reviewFirstName = trim($review['firstname']);
+				$reviewLastName = trim($review['lastname']);
+				$reviewAuthor = $reviewFirstName . " ". $reviewLastName;
+				$reviewPublication = trim($review['publication']);
+				$reviewRatingGif = $modelMethods->reviewGif(trim($reviewRating));
+
 				if($leftColumnCount < $maxLeftColumn){ //how many to store in left column
 			   ?>
 				 <div class="review">
  					<p class="quote">
 						<!-- FUNCTIONS -->
- 						<img src= <?= reviewGif(trim($reviewRating)) ?> alt= <?= trim($reviewRating) ?>/>
- 						<q><?= trim($reviewText) ?></q>
+ 						<img src= <?= $reviewRatingGif ?> alt= <?= $reviewRating ?>/>
+ 						<q><?= $reviewText ?></q>
  					</p>
  					<p class="reviewer">
- 						<img src= "images/critic.gif" alt="Critic" /> <?= trim($reviewAuthor) ?>
+ 						<img src= "images/critic.gif" alt="Critic" /> <?= $reviewAuthor ?>
  						<br />
- 						<em><?= trim($reviewSource) ?></em>
+ 						<em><?= $reviewPublication ?></em>
  					</p>
  				</div>
 			<?php
@@ -99,26 +99,27 @@
 		 </div>
 			<div class="column">
 				<?php
-				foreach($reviewFiles as $reviewFileName) {
+				foreach($reviews as $review) {
+				$reviewRating = trim($review['rating']);
+				$reviewText = trim($review['review']);
+				$reviewFirstName = trim($review['firstname']);
+				$reviewLastName = trim($review['lastname']);
+				$reviewAuthor = $reviewFirstName . " ". $reviewLastName;
+				$reviewPublication = trim($review['publication']);
+				$reviewRatingGif = $modelMethods->reviewGif(trim($reviewRating));
+
 					if($rightColumnCount >= $maxLeftColumn){ //right column takes priority after left
-						if(count(file($reviewFileName)) < 4){ //case where there is no source/organization for review
-							$reviewSource = "";
-							list($reviewText, $reviewRating, $reviewAuthor) = file($reviewFileName);
-						}
-						else{
-							list($reviewText, $reviewRating, $reviewAuthor, $reviewSource) = file($reviewFileName);
-						}
 			   ?>
 				 <div class="review">
  					<p class="quote">
-						 <!-- FUNCTIONS -->
- 						<img src= <?= reviewGif(trim($reviewRating)) ?> alt= <?= trim($reviewRating) ?>/>
- 						<q><?= trim($reviewText) ?></q>
+						<!-- FUNCTIONS -->
+ 						<img src= <?= $reviewRatingGif ?> alt= <?= $reviewRating ?>/>
+ 						<q><?= $reviewText ?></q>
  					</p>
  					<p class="reviewer">
- 						<img src= "images/critic.gif" alt="Critic" /> <?= trim($reviewAuthor) ?>
+ 						<img src= "images/critic.gif" alt="Critic" /> <?= $reviewAuthor ?>
  						<br />
- 						<em><?= trim($reviewSource) ?></em>
+ 						<em><?= $reviewPublication ?></em>
  					</p>
  				</div>
 
@@ -145,14 +146,14 @@
 				<dd><?= $year ?></dd>
 
 				<dt>SCORE</dt>
-				<dd><?= $score ?></dd>
+				<dd><?= $score ?>%</dd>
 
 				<dt>RUNTIME</dt>
-				<dd><?= $runtime ?></dd>
+				<dd><?= $runtime ?> minutes</dd>
 
 
 				<dt>BOX OFFICE</dt>
-				<dd><?= $boxOffice ?></dd>
+				<dd>$<?= $boxOffice ?></dd>
 
 			</dl>
 		</div>

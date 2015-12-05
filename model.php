@@ -25,11 +25,11 @@ class Model {
   }
   public function getReviewsFor($title) {
 		$stmt = $this->conn->prepare (
-				"SELECT Reviews.rating, Reviews.review, Reviewers.name, Reviewers.publication
-				 FROM Reviewers
-				 INNER JOIN Reviews
-				 ON Reviewers.reviewerID=Reviews.reviewerID
-				 WHERE title = :title" );
+				"SELECT reviews.rating, reviews.review, reviewers.firstname, reviewers.lastname, reviewers.publication
+				 FROM reviewers
+				 INNER JOIN reviews
+				 ON reviewers.reviewerID=reviews.reviewerID
+				 WHERE reviews.title = :title" );
 		$stmt->bindParam ( 'title', $title );
 		$stmt->execute ();
 		$array = $stmt->fetchAll ( PDO::FETCH_ASSOC );
@@ -67,7 +67,7 @@ class Model {
 				 WHERE title = :title" );
 		$stmt->bindParam ( 'title', $title );
 		$stmt->execute ();
-		$array = $stmt->fetchAll ( PDO::FETCH_ASSOC );
+		$array = $stmt->fetch ( PDO::FETCH_ASSOC );
 		return $array;
   }
   public function exists($title){
@@ -81,6 +81,15 @@ class Model {
 				return TRUE;
 			else
 				return FALSE;
+  }
+  public function reviewGif($reviewRating) {
+    if($reviewRating == "FRESH"){
+      $reviewImage =  "images/fresh.gif";
+    }
+    else{
+        $reviewImage = "images/rotten.gif";
+      }
+    return $reviewImage;
   }
 }
 ?>
