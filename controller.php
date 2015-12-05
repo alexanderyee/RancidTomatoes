@@ -30,12 +30,12 @@ if (isset ( $_POST ['loginUsername'] ) && isset ( $_POST ['loginPassword'] )) {
 		$modelMethods->register ( $username, $password );
 		header ( "Location: index.php" );
 	}
-} elseif (isset ( $_POST ['logout'] )) {
+}
+elseif (isset ( $_POST ['logout'] )) {
 	session_start (); // to ensure you are using same session
 	session_destroy (); // destroy the session so $SESSION['anything'] is not set
 	header ( "Location: index.php" );
-	}
-
+	
 } elseif (isset ($_POST ['newTitle'])) {
 	$title = $_POST ['newTitle'];
 	$director = $_POST ['newDirector'];
@@ -46,5 +46,12 @@ if (isset ( $_POST ['loginUsername'] ) && isset ( $_POST ['loginPassword'] )) {
 	$boxOffice = $_POST ['newBoxOffice'];
 	$modelMethods->addNewMovie($title, $filename, $director, $mpaa, $score, $year, $runtime, $boxOffice);
 	header ( "Location: review.php" ); 
+} elseif (isset ($_POST ['reviewTitle'])) {
+	$title = $_POST ['reviewTitle'];
+	$review = $_POST ['reviewReview'];
+	$rating = $_POST ['rating'];
+	$modelMethods->addReview($title, /*reviewerID?*/ $review, $rating);
+	header ("Location: review.php")
 }
+
 ?>
