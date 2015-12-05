@@ -32,7 +32,7 @@
 				</div>
 				<div id="ad">
 					<div id="adText"><i>Critics are hailing it as the must-see film of the century...</i></div>
-					<a href="review.php?searchKey=Garfield: A Tale of Two Kitties"><img id="adImage" src="images/ad.png" alt="Garfield Ad"></a> <!--STILL NEED TO TEST !-->
+					<a href="review.php?adTitle=Garfield: A Tail of Two Kitties"><img id="adImage" src="images/ad.png" alt="Garfield Ad"></a> <!--STILL NEED TO TEST !-->
 				</div>
 
 	  	</div>

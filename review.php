@@ -21,13 +21,16 @@
 		<img src="images/rancidbanner.png" alt="Rancid Tomatoes">
 	</div>
   <?php
+	if(isset($_GET["adTitle"])) //clicked on ad
+		$title = trim($_GET["adTitle"]);
+	else
+		$title = trim($_POST["searchKey"]);
 
-	$title = trim($_POST["searchKey"]);
 	$modelMethods = new Model();
 	$exists = $modelMethods->exists($title);
 	if($exists == 1){
 		session_start();
-		$_SESSION["searchKey"] = $_POST["searchKey"];
+		$_SESSION["error"] = $title;
 		header ( "Location:error.php" );
 		exit;
 	}
