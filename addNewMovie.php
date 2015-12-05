@@ -20,7 +20,7 @@ MAKE SURE TO GET THE USERNAME OF THE USER LOGGED IN WHILE ADDING A movieREVIEW F
 		<h1>Add New Movie</h1>
     <form id="newForm" action="http://localhost/github/337final/controller.php" method="post"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
     	Title &nbsp<input type="text" id="newTitle" name="newTitle"  required > <br><br>
-			<form action="upload.php" method="post" enctype="multipart/form-data">
+			<form action="http://localhost/github/337final/controller.php" method="post" enctype="multipart/form-data">
 			    Select file to upload:
 			    <input type="file" id="file" name="file">
 			    <input type="submit" value="Upload File" id="submitFile" name="submitFile">

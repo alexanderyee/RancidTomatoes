@@ -33,11 +33,12 @@ class Model {
 		$array = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		return $array;
 	}
-  public function addNewMovie($title, $director, $mpaa, $score, $year, $runtime, $boxOffice){
+  public function addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice){
   	$stmt = $this->conn->prepare (
-				"INSERT INTO titles(title, director, mpaaRating, score, year, runtime, boxOffice)
-				VALUES(:title, :director, :mpaa, :score, :year, :runtime, :boxOffice); ");
+				"INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice)
+				VALUES(:title, , :imageFileName, :director, :mpaa, :score, :year, :runtime, :boxOffice); ");
 		$stmt->bindParam ( 'title', $title );
+    $stmt->bindParam ( 'imageFileName', $imageFileName );
 		$stmt->bindParam ( 'director', $director );
 		$stmt->bindParam ( 'mpaa', $mpaa );
 		$stmt->bindParam ( 'score', $score );
@@ -115,5 +116,10 @@ class Model {
 	else
 		return TRUE;
   }
+  public function isPNG( $filePath ){
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file( $finfo, $filePath );
+    return ( $mime === “application/pdf” );
+}
 }
 ?>

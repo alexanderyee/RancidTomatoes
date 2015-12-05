@@ -19,7 +19,7 @@ if (isset ( $_POST ['loginUsername'] ) && isset ( $_POST ['loginPassword'] )) {
 		$_SESSION ['loginError'] = 'Invalid Account/Password';
 		header ( "Location: login.php" );
 		}
-	
+
 } else if (isset ( $_POST ['registerUsername'] ) && isset ( $_POST ['registerPassword'] )) {
 	$username = $_POST ['registerUsername'];
 	$password = $_POST ['registerPassword'];
@@ -35,23 +35,40 @@ elseif (isset ( $_POST ['logout'] )) {
 	session_start (); // to ensure you are using same session
 	session_destroy (); // destroy the session so $SESSION['anything'] is not set
 	header ( "Location: index.php" );
-	
+
 } elseif (isset ($_POST ['newTitle'])) {
 	$title = $_POST ['newTitle'];
+
+	//image
+	if ( !isset($_FILES['file']['error']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK )
+	  die( "Upload failed with error" );
+	if ( !isPNG( $_FILES['file']['tmp_name']) )
+	  die( "Cannot upload the file as it is not a PNG file" );
+	$newImageFileNameLocation = "uploads/{$title}.png";
+	move_uploaded_file( $_FILES['file']['tmp_file'] , $newImageFileNameLocation);
+	$imageFileName = $newImageFileNameLocation;
+
+
 	$director = $_POST ['newDirector'];
 	$mpaa = $_POST ['newRating'];
 	$score = $_POST ['newScore'];
 	$year = $_POST ['newYear'];
 	$runtime = $_POST ['newRuntime'];
 	$boxOffice = $_POST ['newBoxOffice'];
-	$modelMethods->addNewMovie($title, $director, $mpaa, $score, $year, $runtime, $boxOffice);
-	header ( "Location: review.php" ); 
+
+
+
+
+
+
+	$modelMethods->addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice);
+	header ( "Location: review.php" );
 } elseif (isset ($_POST ['reviewTitle'])) {
 	$title = $_POST ['reviewTitle'];
 	$review = $_POST ['reviewReview'];
 	$rating = $_POST ['rating'];
 	$modelMethods->addReview($title, "1"/*reviewerID? maybe should be passed in as a session variable*/, $review, $rating);
 	header ("Location: review.php")
-} 
+}
 
 ?>
