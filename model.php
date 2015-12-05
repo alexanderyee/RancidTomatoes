@@ -3,7 +3,6 @@
 class Model {
   private $conn;
   /*Description: constructor for the Model class, used to assign instance variable to the database. */
-
   public function __construct(){
     $db= 'mysql:dbname=movies;host=127.0.0.1';
     $user = 'root';
@@ -35,7 +34,6 @@ class Model {
 		$array = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		return $array;
 	}
-
   public function addNewMovie($title, $filename, $director, $mpaa, $score, $year, $runtime, $boxOffice){
   	$stmt = $this->conn->prepare (
 				"INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice)
