@@ -22,7 +22,10 @@
     Publication &nbsp<input type="text" id="registerPublication" name="registerPublication"  required > <br><br>
 
     <input type="submit" id="registerButton" name="registerButton" value="Register">
-
+    <?php
+		      session_start ();
+		      echo $_SESSION ['registerError']; 
+		?>
     </form>
 
 	</div>
