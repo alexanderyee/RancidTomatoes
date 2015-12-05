@@ -24,24 +24,7 @@ class Model {
     return $arrayOfTitles;
   }
   public function getReviewsFor($title) {
-		// Reviewers:
-		// +------------+-------------+----------------+
-		// | reviewerID | name | publication |
-		// +------------+-------------+----------------+
-		// | edg | Ed Gonzalez | Slant Magazine |
-		// | jays | Jay Sherman | Unemployed |
-		// +------------+-------------+----------------+
-		//
-		// Reviews:
-		// +----+-------------------------+------------+-----------------------------------+--------+
-		// | ID | title | reviewerID | review | rating |
-		// +----+-------------------------+------------+-----------------------------------+--------+
-		// | 1 | Guardians of the Galaxy | jays | Very believable, talking raccoons | fresh |
-		// | 2 | The Imitation Game | jays | Authentic | rotten |
-		// | 3 | The Imitation Game | edg | Have not seen it. | fresh |
-		// | 4 | Guardians of the Galaxy | edg | Crazy | rotten |
-		// +----+-------------------------+------------+-----------------------------------+--------+
-		$stmt = $this->DB->prepare (
+		$stmt = $this->conn->prepare (
 				"SELECT Reviews.rating, Reviews.review, Reviewers.name, Reviewers.publication
 				 FROM Reviewers
 				 INNER JOIN Reviews
@@ -54,8 +37,8 @@ class Model {
 	}
 
   public function addNewMovie($title, $filename, $director, $mpaa, $score, $year, $runtime, $boxOffice){
-  	$stmt = $this->DB->prepare (
-				"INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) 
+  	$stmt = $this->conn->prepare (
+				"INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice)
 				VALUES(:title, :filename, :director, :mpaa, :score, :year, :runtime, :boxOffice); ");
 		$stmt->bindParam ( 'title', $title );
 		$stmt->bindParam ( 'filename', $filename );
@@ -65,11 +48,11 @@ class Model {
 		$stmt->bindParam ( 'year', $year );
 		$stmt->bindParam ( 'runtime', $runtime );
 		$stmt->bindParam ( 'boxOffice', $boxOffice );
-		$stmt->execute ();		
+		$stmt->execute ();
   }
   public function addReview($title, $ID, $review, $rating){
-  	$stmt = $this->DB->prepare (
-				"INSERT INTO reviews(title, reviewerID, review, rating) 
+  	$stmt = $this->conn->prepare (
+				"INSERT INTO reviews(title, reviewerID, review, rating)
 				VALUES(:title, :ID, :review, :rating); ");
 		$stmt->bindParam ( 'title', $title );
 		$stmt->bindParam ( 'ID', $ID );
@@ -77,8 +60,8 @@ class Model {
 		$stmt->bindParam ( 'rating', $rating );
 		$stmt->execute ();
   }
-  public function getOverallInfoFor($title){ 
-  	$stmt = $this->DB->prepare (
+  public function getOverallInfoFor($title){
+  	$stmt = $this->conn->prepare (
 				"SELECT imageFileName, director, mpaaRating, score, year, runtime, boxOffice
 				 FROM titles
 				 WHERE title = :title" );
@@ -87,16 +70,17 @@ class Model {
 		$array = $stmt->fetchAll ( PDO::FETCH_ASSOC );
 		return $array;
   }
-  public function exists($title){ 
+  public function exists($title){
   // search key in titles, returns true if exists
-  	$stmt = $this->DB->prepare ( 'SELECT * FROM titles WHERE title = :title' );
+  	$stmt = $this->conn->prepare ( 'SELECT * FROM titles WHERE title = :title' );
 			$stmt->bindParam ( 'title', $title );
 			$stmt->execute ();
 			$stmt->fetch ();
-			
+
 			if ($stmt->rowCount () === 0)
 				return TRUE;
 			else
 				return FALSE;
-} 
+  }
+}
 ?>

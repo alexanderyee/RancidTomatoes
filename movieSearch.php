@@ -8,7 +8,7 @@
  */
   require_once './model.php';
   $modelMethods = new Model();
-  $arrayOfTitles = $modelMethods->getArrayOfTitles();
+  $arrayOfTitles = $modelMethods->getAllTitles();
   $searchKey = $_GET['searchKey'];
   $JSONArray = '['; //begin JSONArray string
   foreach($arrayOfTitles as $record) {
@@ -18,8 +18,5 @@
   }
   $JSONArray = rtrim($JSONArray, ","); //remove last comma
   $JSONArray = $JSONArray . ']'; //end JSONArray string
-  echo $JSONArray; //echo for use in AJAX in suggest.html
-
-  header ( "Location: index.php" ); //REDIRECTOIN AFTER ADDING NEW MOVIE ONLY - specify condtion MIGHT NEED DIFFERENT CONTROLLERS - not right, need to put in another file not controller
-
+  echo $JSONArray; //echo for use in AJAX in index.php
 ?>

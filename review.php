@@ -1,5 +1,5 @@
 <?php
-	require_once("functions.php");
+	require_once("model.php");
 ?>
 <!DOCTYPE html>
 <!-- Name: Bijan Anjavi
@@ -20,33 +20,45 @@
 	<div id="banner">
 		<img src="images/rancidbanner.png" alt="Rancid Tomatoes">
 	</div>
-  <?php //to set up the page, get URL queryParameter,set up header, and set up overviewImage
-	if(empty($_GET)){
-		$movie = "tmnt";
+  <?php
+
+	$title = trim($_POST["searchKey"]);
+	$modelMethods = new Model();
+	$exists = $modelMethods->exists($title);
+	echo $exists;
+	if($exists == 1){
+		session_start();
+		$_SESSION["searchKey"] = $_POST["searchKey"];
+		header ( "Location:error.php" );
+		exit;
+	}
+
+	$overallInfo = $modelMethods->getOverallInfoFor($title);
+
+
+  $overviewImageFileName = $overallInfo['imageFileName'];
+	$director = $overallInfo['director'];
+	$mpaaRating = $overallInfo['mpaaRating'];
+	$score = $overallInfo['score'];
+	$year = $overallInfo['year'];
+	$runtime = $overallInfo['runtime'];
+	$boxOffice = $overallInfo['boxOffice'];
+
+
+	if($score >= 60){ //Could be modularized, not much bc not be repeated (unlike reviews + overview)
+		$scoreImage =  "images/freshlarge.png";
+		$scoreImageAlt = "FRESH";
 	}
   else{
-  	$movie = trim($_GET["film"]);
+		$scoreImage = "images/rottenlarge.png";
+		$scoreImageAlt = "ROTTEN";
 	}
-  $infoFile = $movie . "/info.txt";
-	list($title, $year, $rating) = file($infoFile);
-	$title = trim($title);
-	$year = trim($year);
-	$rating = trim($rating);
-	if($rating >= 60){ //Could be modularized, not much bc not be repeated (unlike reviews + overview)
-		$ratingImage =  "images/freshlarge.png";
-		$ratingImageAlt = "FRESH";
-	}
-  else{
-		$ratingImage = "images/rottenlarge.png";
-		$ratingImageAlt = "ROTTEN";
-	}
-	$overviewImage = $movie . "/overview.png";
   ?>
 	<h1><?= $title . " (" . $year . ")"?></h1>
 	<div id="overallcontent">
 		<div id="reviews-overall">
 			<div id="reviews-header">
-				<img src=<?= $ratingImage ?>  alt= <?= $ratingImageAlt ?> /> <?= $rating . "%" ?>
+				<img src=<?= $scoreImage ?>  alt= <?= $scoreImageAlt ?> /> <?= $score . "%" ?>
 			</div>
 			<?php //set up how to divide reviews amongst columns
 			$reviewFiles = glob($movie . "/" . "review*.txt");
@@ -119,26 +131,34 @@
 		</div>
 		<div id="general-overview">
 			<div>
-				<img src= <?= $overviewImage ?> alt="general overview" />
+				<img src= <?= $overviewImageFileName ?> alt="general overview" />
 			</div>
 			<dl>
-				<?php
-				$overviewFileName = $movie . "/overview.txt"; //STARRING: actors on same line with comma
-				$overviewLines = file($overviewFileName);
-				$count = count($overviewLines); //counts number of elements in array, or number of lines
-				for($i = 0; $i < $count; $i++){
-				?>
-				<!-- FUNCTIONS -->
-				<dt><?= overviewItem($overviewLines[$i]) ?></dt>
-				<dd><?= overviewDescription($overviewLines[$i]) ?></dd>
-				<?php
-			   }
-				?>
+
+				<dt>DIRECTOR</dt>
+				<dd><?= $director ?></dd>
+
+				<dt>MPAA RATING</dt>
+				<dd><?= $mpaaRating ?></dd>
+
+				<dt>THEATRICAL RELEASE YEAR</dt>
+				<dd><?= $year ?></dd>
+
+				<dt>SCORE</dt>
+				<dd><?= $score ?></dd>
+
+				<dt>RUNTIME</dt>
+				<dd><?= $runtime ?></dd>
+
+
+				<dt>BOX OFFICE</dt>
+				<dd><?= $boxOffice ?></dd>
+
 			</dl>
 		</div>
 		<p id="footer">(1-<?= $N ?>) of <?= $N ?></p>
     <div id="bottom-reviews-header">
-			<img src=<?= $ratingImage ?>  alt= <?= $ratingImageAlt ?> /> <?= $rating . "%" ?>
+			<img src=<?= $scoreImage ?>  alt= <?= $scoreImageAlt ?> /> <?= $score . "%" ?>
     </div>
 	</div>
   <div id="bottom-banner">
