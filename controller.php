@@ -50,7 +50,7 @@ elseif (isset ( $_POST ['logout'] )) {
 	$title = $_POST ['reviewTitle'];
 	$review = $_POST ['reviewReview'];
 	$rating = $_POST ['rating'];
-	$modelMethods->addReview($title, "1"/*reviewerID?*/, $review, $rating);
+	$modelMethods->addReview($title, "1"/*reviewerID? maybe should be passed in as a session variable*/, $review, $rating);
 	header ("Location: review.php")
 } 
 
