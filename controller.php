@@ -20,14 +20,21 @@ if (isset ( $_POST ['loginUsername'] ) && isset ( $_POST ['loginPassword'] )) {
 		header ( "Location: login.php" );
 		}
 
-} else if (isset ( $_POST ['registerUsername'] ) && isset ( $_POST ['registerPassword'] )) {
+} elseif (isset ( $_POST ['registerUsername'] ) && isset ( $_POST ['registerPassword'] )) {
 	$username = $_POST ['registerUsername'];
 	$password = $_POST ['registerPassword'];
+ 	$firstname= trim($_POST ['registerFirstName']);
+	$lastname = trim($_POST ['registerLastName']);
+	$publication = trim($_POST ['registerPublication']);
+
 	if ($modelMethods->usernameExists($username)){
+		session_start ();
 		$_SESSION ['registerError'] = 'Username has already been taken';
-		header ("Location: register.php")
+		header ("Location: register.php");
 	} else {
 		$modelMethods->register ( $username, $password );
+		$modelMethods->addReviewer($username, $firstname, $lastname, $publication);
+
 		header ( "Location: index.php" );
 	}
 }
@@ -37,38 +44,65 @@ elseif (isset ( $_POST ['logout'] )) {
 	header ( "Location: index.php" );
 
 } elseif (isset ($_POST ['newTitle'])) {
-	$title = $_POST ['newTitle'];
+	$title = trim($_POST ['newTitle']);
 
 	//image
 	if ( !isset($_FILES['file']['error']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK )
 	  die( "Upload failed with error" );
-	if ( !isPNG( $_FILES['file']['tmp_name']) )
+	if ( !$modelMethods->isPNG( $_FILES['file']['tmp_name']) )
 	  die( "Cannot upload the file as it is not a PNG file" );
-	$newImageFileNameLocation = "uploads/{$title}.png";
-	move_uploaded_file( $_FILES['file']['tmp_file'] , $newImageFileNameLocation);
-	$imageFileName = $newImageFileNameLocation;
 
 
-	$director = $_POST ['newDirector'];
-	$mpaa = $_POST ['newRating'];
-	$score = $_POST ['newScore'];
-	$year = $_POST ['newYear'];
-	$runtime = $_POST ['newRuntime'];
-	$boxOffice = $_POST ['newBoxOffice'];
+		$fileTitle = preg_replace('/\s+/', '', $title); //remove spaces
+		$target_dir = "C:/xampp/htdocs/github/337final/uploads/";
+		$target_file = $target_dir . $fileTitle . ".png";
+		$uploadOk = 1;
+
+		// Check if file already exists
+		if (file_exists($target_file)) {
+		    echo "Sorry, file already exists.";
+		    $uploadOk = 0;
+		}
+
+		// Check if $uploadOk is set to 0 by an error
+		if ($uploadOk == 0) {
+		    echo "Sorry, your file was not uploaded.";
+		// if everything is ok, try to upload file
+		} else {
+		    if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
+		        echo "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
+		    } else {
+		        echo "Sorry, there was an error uploading your file.";
+		    }
+		}
 
 
 
 
 
+	$imageFileName = "uploads/" . $fileTitle . ".png";
 
+
+	$director = trim($_POST ['newDirector']);
+	$mpaa = trim($_POST ['newRating']);
+	$score = trim($_POST ['newScore']);
+	$year = trim($_POST ['newYear']);
+	$runtime = trim($_POST ['newRuntime']);
+	$boxOffice = trim($_POST ['newBoxOffice']);
 	$modelMethods->addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice);
+
+	session_start ();
+	$_SESSION["title"] = $title;
 	header ( "Location: review.php" );
+
 } elseif (isset ($_POST ['reviewTitle'])) {
-	$title = $_POST ['reviewTitle'];
-	$review = $_POST ['reviewReview'];
-	$rating = $_POST ['rating'];
-	$modelMethods->addReview($title, "1"/*reviewerID? maybe should be passed in as a session variable*/, $review, $rating);
-	header ("Location: review.php")
+	$title = trim($_POST ['reviewTitle']);
+	$review = trim($_POST ['reviewReview']);
+	$rating = trim($_POST ['rating']);
+	session_start ();
+	$modelMethods->addReview($title, $_SESSION["user"], $review, $rating);
+	$_SESSION["title"] = $title;
+	header ("Location: review.php");
 }
 
 ?>

@@ -16,10 +16,10 @@
 		<h1>Login</h1>
     <form id="loginForm" action="controller.php" method="post"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
     Username &nbsp;<input type="text" id="loginUsername" name="loginUsername" placeholder="Enter username here" required> <br><br>
-    Password &nbsp;<input type="text" id="loginPassword" name="loginPassword" placeholder="Enter password here" required> <br><br>
+    Password &nbsp;<input type="password" id="loginPassword" name="loginPassword" placeholder="Enter password here" required> <br><br>
     <input type="submit" id="loginButton" name="loginButton" value="Login">
 		<?php
-		      session_start ();
+					session_start ();
 		      echo $_SESSION ['loginError']; // session needs a login error message
 		?>
     </form>

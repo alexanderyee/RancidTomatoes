@@ -36,7 +36,7 @@ class Model {
   public function addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice){
   	$stmt = $this->conn->prepare (
 				"INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice)
-				VALUES(:title, , :imageFileName, :director, :mpaa, :score, :year, :runtime, :boxOffice); ");
+				VALUES(:title, :imageFileName, :director, :mpaa, :score, :year, :runtime, :boxOffice); ");
 		$stmt->bindParam ( 'title', $title );
     $stmt->bindParam ( 'imageFileName', $imageFileName );
 		$stmt->bindParam ( 'director', $director );
@@ -50,13 +50,29 @@ class Model {
   public function addReview($title, $ID, $review, $rating){
   	$stmt = $this->conn->prepare (
 				"INSERT INTO reviews(title, reviewerID, review, rating)
-				VALUES(:title, :ID, :review, :rating); ");
+				VALUES(:title, :reviewerID, :review, :rating); ");
 		$stmt->bindParam ( 'title', $title );
-		$stmt->bindParam ( 'ID', $ID );
+		$stmt->bindParam ( 'reviewerID', $ID );
 		$stmt->bindParam ( 'review', $review );
 		$stmt->bindParam ( 'rating', $rating );
 		$stmt->execute ();
   }
+
+  public function addReviewer($username, $firstname, $lastname, $publication) {
+  	$stmt = $this->conn->prepare (
+				"INSERT INTO reviewers(reviewerID, firstname, lastname, publication)
+				VALUES(:reviewerID, :firstname, :lastname, :publication); ");
+		$stmt->bindParam ( 'reviewerID', $username );
+		$stmt->bindParam ( 'firstname', $firstname );
+		$stmt->bindParam ( 'lastname', $lastname );
+		$stmt->bindParam ( 'publication', $publication );
+		$stmt->execute ();
+  }
+
+
+
+
+
   public function getOverallInfoFor($title){
   	$stmt = $this->conn->prepare (
 				"SELECT imageFileName, director, mpaaRating, score, year, runtime, boxOffice
@@ -116,10 +132,20 @@ class Model {
 	else
 		return TRUE;
   }
+  public function titleExists($title){ // returns true if title title in titles
+    $stmt = $this->conn->prepare ( 'SELECT * FROM titles WHERE title = :title' );
+  $stmt->bindParam ( ':title', $title );
+  $stmt->execute ();
+  $stmt->fetch ();
+  // Hashing the password with its hash as the salt returns the same hash
+  if ($stmt->rowCount () === 0)
+    return FALSE;
+  else
+    return TRUE;
+  }
   public function isPNG( $filePath ){
-    $finfo = finfo_open(FILEINFO_MIME_TYPE);
-    $mime = finfo_file( $finfo, $filePath );
-    return ( $mime === “application/pdf” );
+    $mime = mime_content_type($filePath);
+    return ( $mime === 'image/png' );
 }
 }
 ?>

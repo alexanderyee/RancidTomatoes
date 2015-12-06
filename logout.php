@@ -7,7 +7,10 @@
 	<meta charset="utf-8" />
 	<link href="main.css" rel="stylesheet" type="text/css">
 </head>
-
+<?php
+session_start (); // to ensure you are using same session
+session_destroy (); // destroy the session so $SESSION['anything'] is not set
+?>
 <body>
 	<div id="overallContent">
 		<div id="banner">

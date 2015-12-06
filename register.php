@@ -16,7 +16,7 @@
 		<h1>Register</h1>
     <form id="registerForm" action="http://localhost/github/337final/controller.php" method="post"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
     Username &nbsp<input type="text" id="registerUsername" name="registerUsername" pattern="[a-zA-Z0-9-]+" required > <br><br>
-    Password &nbsp<input type="text" id="registerPassword" name="registerPassword" pattern="[a-zA-Z0-9-]+"  minlength=8 required > <br><br>
+    Password &nbsp<input type="password" id="registerPassword" name="registerPassword" pattern="[a-zA-Z0-9-]+"  minlength=8 required > <br><br>
     First Name &nbsp<input type="text" id="registerFirstName" name="registerFirstName" required > <br><br>
     Last Name &nbsp<input type="text" id="registerLastName" name="registerLastName"  required > <br><br>
     Publication &nbsp<input type="text" id="registerPublication" name="registerPublication"  required > <br><br>
@@ -24,7 +24,7 @@
     <input type="submit" id="registerButton" name="registerButton" value="Register">
     <?php
 		      session_start ();
-		      echo $_SESSION ['registerError']; 
+		      echo $_SESSION ['registrationError'];
 		?>
     </form>
 

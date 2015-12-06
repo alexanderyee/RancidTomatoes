@@ -15,7 +15,28 @@
 		</div>
 		<h1>Rancid Tomatoes Enhanced</h1>
 		<div id="nav">
-			<a href="login.php">Login</a>&nbsp|&nbsp<a href="register.php">Register</a>&nbsp|&nbsp<a href="addReview.php">Add Review</a>&nbsp|&nbsp<a href="addNewMovie.php">Add New Movie</a>
+
+			<?php
+			session_start (); // Need this in each file before $_SESSION
+			$_SESSION ['loginError'] = "";
+			$_SESSION ['registrationError'] = "";
+
+			if (isset ( $_SESSION ["user"] )) {
+				$loggedInUsername = $_SESSION ["user"];
+			?>
+			Hello, <?= $loggedInUsername ?> &nbsp|&nbsp
+			<a href="logout.php">Logout</a>&nbsp|&nbsp
+			<a href="addReview.php">Add Review</a>&nbsp|&nbsp
+			<a href="addNewMovie.php">Add New Movie</a>
+			<?php
+			}
+			else {
+			?>
+			<a href="login.php">Login</a> &nbsp|&nbsp
+			<a href="register.php">Register</a>
+			<?php
+			}
+			?>
 		</div>
 		<br>
 			<div id="container">
@@ -36,7 +57,7 @@
 				</div>
 
 	  	</div>
-			<p id="footer">By <a href="blank.html"class="name">Alex Yee</a> & <a href="blank.html"class="name">Bijan Anjavi</a> </p>
+			<p id="footer">By Alex Yee & Bijan Anjavi</p>
 	</div>
 
 	<script>
@@ -51,12 +72,12 @@
 					// parse JSONArray (from movieSearch.php)
 					var array = JSON.parse(xhttp.responseText);
 					for(i = 0; i < array.length; i++){
-						if(i > 19) //greater than 20 titles, so break
+						if(i > 9) //greater than 10 titles, so break
 							break;
-						else if (i > 9) //greater than 10 titles, so put in right box
-							document.getElementById("rightDisplayBox").innerHTML = document.getElementById("rightDisplayBox").innerHTML + array[i] + "<br>";
+						else if (i > 4) //greater than 5 titles, so put in right box
+							document.getElementById("rightDisplayBox").innerHTML = document.getElementById("rightDisplayBox").innerHTML + array[i] + "<br><br>";
 						else //between 0 and 9 index, meaning up to and including 10 titles -> put in left box
-							document.getElementById("leftDisplayBox").innerHTML = document.getElementById("leftDisplayBox").innerHTML + array[i] + "<br>";
+							document.getElementById("leftDisplayBox").innerHTML = document.getElementById("leftDisplayBox").innerHTML + array[i] + "<br><br>";
 					}
 				}
 			}

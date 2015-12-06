@@ -9,7 +9,7 @@
 </head>
 <?php
 session_start();
-$error = $_SESSION["error"];
+$error = $_SESSION["title"];
 ?>
 <body>
 	<div id="overallContent">

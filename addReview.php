@@ -18,14 +18,14 @@ MAKE SURE TO GET THE USERNAME OF THE USER LOGGED IN WHILE ADDING A movieREVIEW F
 			<a  href="index.php"><img src="images/rancidbanner.png" alt="Rancid Tomatoes"></a>
 		</div>
 		<h1>Add Review</h1>
-    <form id="reviewForm" action="http://localhost/github/337final/controller.php" method="post"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
+    <form id="reviewForm" action="controller.php" method="post"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
     	Title &nbsp<input type="text" id="reviewTitle" name="reviewTitle"  required > <br><br>
 			Review <textarea rows="10" cols="50" id="reviewReview" name="reviewReview" maxlength=500 required></textarea> <!--ADD CANCEL EFFORT FEATURE -->
 			<fieldset>
 				<legend>Rating</legend>
 					<input type="radio" id="reviewFresh" name="rating" value="FRESH" required> FRESH
 					<br>
-					<input type="radio" id="reviewRotten" name="rating" value="rotten" required> ROTTEN
+					<input type="radio" id="reviewRotten" name="rating" value="ROTTEN" required> ROTTEN
 				</fieldset>
 				<br><br>
 

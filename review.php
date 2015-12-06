@@ -18,22 +18,29 @@
 
 <body>
 	<div id="banner">
-		<img src="images/rancidbanner.png" alt="Rancid Tomatoes">
+		<a  href="index.php"><img src="images/rancidbanner.png" alt="Rancid Tomatoes"></a>
 	</div>
   <?php
-	if(isset($_GET["adTitle"])) //clicked on ad
-		$title = trim($_GET["adTitle"]);
-	else
-		$title = trim($_POST["searchKey"]);
+	session_start ();
+	if(isset($_GET["adTitle"])){ //clicked on ad
+		$_SESSION["title"] = trim($_GET["adTitle"]);
+		unset( $_GET["adTitle"] );
+
+	}
+	if(isset($_POST["searchKey"])) {
+		$_SESSION["title"] = trim($_POST["searchKey"]);
+		unset( $_POST["searchKey"] );
+	}
+ //assume sent by controller and session is not empty
+	$title = $_SESSION["title"];
 
 	$modelMethods = new Model();
 	$exists = $modelMethods->exists($title);
 	if($exists == 1){
-		session_start();
-		$_SESSION["error"] = $title;
 		header ( "Location:error.php" );
 		exit;
 	}
+
 
 	$overallInfo = $modelMethods->getOverallInfoFor($title);
 
@@ -72,13 +79,13 @@
 			<div class="column">
 				<?php
 				foreach($reviews as $review) {
-				$reviewRating = trim($review['rating']);
-				$reviewText = trim($review['review']);
-				$reviewFirstName = trim($review['firstname']);
-				$reviewLastName = trim($review['lastname']);
-				$reviewAuthor = $reviewFirstName . " ". $reviewLastName;
-				$reviewPublication = trim($review['publication']);
-				$reviewRatingGif = $modelMethods->reviewGif(trim($reviewRating));
+					$reviewRating = $review['rating'];
+					$reviewText = $review['review'];
+					$reviewFirstName = $review['firstname'];
+					$reviewLastName = $review['lastname'];
+					$reviewAuthor = $reviewFirstName . " ". $reviewLastName;
+					$reviewPublication = $review['publication'];
+					$reviewRatingGif = $modelMethods->reviewGif($reviewRating);
 
 				if($leftColumnCount < $maxLeftColumn){ //how many to store in left column
 			   ?>
@@ -103,13 +110,13 @@
 			<div class="column">
 				<?php
 				foreach($reviews as $review) {
-				$reviewRating = trim($review['rating']);
-				$reviewText = trim($review['review']);
-				$reviewFirstName = trim($review['firstname']);
-				$reviewLastName = trim($review['lastname']);
-				$reviewAuthor = $reviewFirstName . " ". $reviewLastName;
-				$reviewPublication = trim($review['publication']);
-				$reviewRatingGif = $modelMethods->reviewGif(trim($reviewRating));
+					$reviewRating = $review['rating'];
+					$reviewText = $review['review'];
+					$reviewFirstName = $review['firstname'];
+					$reviewLastName = $review['lastname'];
+					$reviewAuthor = $reviewFirstName . " ". $reviewLastName;
+					$reviewPublication = $review['publication'];
+					$reviewRatingGif = $modelMethods->reviewGif($reviewRating);
 
 					if($rightColumnCount >= $maxLeftColumn){ //right column takes priority after left
 			   ?>
@@ -166,7 +173,7 @@
     </div>
 	</div>
   <div id="bottom-banner">
-    <img src="images/rancidbanner.png" alt="Rancid Tomatoes">
+		<a  href="index.php"><img src="images/rancidbanner.png" alt="Rancid Tomatoes"></a>
   </div>
 </body>
 
