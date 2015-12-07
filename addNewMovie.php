@@ -33,6 +33,10 @@
 			<div class="newInputField"><span class="newText">Select file to upload:</span><input class="newText" type="file" id="file" name="file" required></div><br><br>
 			<br><br>
     	<input type="submit" id="newMovieButton" name="newMovieButton" value="Add Movie">
+			<?php
+			      session_start ();
+			      echo $_SESSION ['addNewMovieError'];
+			?>
     </form>
 	</div>
 </body>

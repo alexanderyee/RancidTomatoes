@@ -26,13 +26,12 @@ if (isset ( $_POST ['loginUsername'] ) && isset ( $_POST ['loginPassword'] )) {
 	$publication = htmlspecialchars(trim($_POST ['registerPublication']));
 	if ($modelMethods->usernameExists($username)){
 		session_start ();
-		$_SESSION ['registerError'] = 'Username has already been taken';
+		$_SESSION ['registrationError'] = 'Username has already been taken';
 		header ("Location: register.php");
 	} else {
-		$modelMethods->register ( $username, $password );
-		$modelMethods->addReviewer($username, $firstname, $lastname, $publication);
-
-		header ( "Location: index.php" );
+			$modelMethods->register ( $username, $password );
+			$modelMethods->addReviewer($username, $firstname, $lastname, $publication);
+			header ( "Location: index.php" );
 	}
 }
 elseif (isset ( $_POST ['logout'] )) { //NOT NEEDED FOR OUR IMPLEMENTATION OF LOGOUT
@@ -46,7 +45,7 @@ elseif (isset ( $_POST ['logout'] )) { //NOT NEEDED FOR OUR IMPLEMENTATION OF LO
 	  die( "Upload failed with error" );
 	if ( !$modelMethods->isPNG( $_FILES['file']['tmp_name']) )
 	  die( "Cannot upload the file as it is not a PNG file" );
-		$fileTitle = preg_replace('/\s+/', '', $title); //remove spaces
+		$fileTitle = preg_replace('/[^A-Za-z0-9 _ .-]/', '', $title); //changes into filesafe naming form
 		$target_dir = "C:/xampp/htdocs/github/337final/uploads/"; //replace with your own absolute path to the upload folder, also make sure to modify permissions
 		$target_file = $target_dir . $fileTitle . ".png";
 		$uploadOk = 1;
@@ -74,10 +73,16 @@ elseif (isset ( $_POST ['logout'] )) { //NOT NEEDED FOR OUR IMPLEMENTATION OF LO
 	$runtime = htmlspecialchars(trim($_POST ['newRuntime']));
 	$boxOffice = htmlspecialchars(trim($_POST ['newBoxOffice']));
 	$boxOffice = number_format($boxOffice); //add commas to turn into a string with number format
-	$modelMethods->addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice);
-	session_start ();
-	$_SESSION["title"] = $title;
-	header ( "Location: review.php" );
+	if ($modelMethods->titleExists($title)){
+		session_start ();
+		$_SESSION ['addNewMovieError'] = 'The movie already exists in our database';
+		header ("Location: addNewMovie.php");
+	} else {
+			$modelMethods->addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice);
+			session_start ();
+			$_SESSION["title"] = $title;
+			header ( "Location: review.php" );
+	}
 } elseif (isset ($_POST ['reviewTitle'])) {
 	$title = htmlspecialchars(trim($_POST ['reviewTitle']));
 	$review = htmlspecialchars(trim($_POST ['reviewReview']));

@@ -17,7 +17,7 @@
 			<a  href="index.php"><img src="images/rancidbanner.png" alt="Rancid Tomatoes"></a>
 		</div>
 		<h1>Register</h1>
-    <form id="registerForm" action="http://localhost/github/337final/controller.php" method="post"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
+    <form id="registerForm" action="controller.php" method="post"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
     Username &nbsp<input type="text" id="registerUsername" name="registerUsername" pattern="[a-zA-Z0-9-]+" required > <br><br>
     Password &nbsp<input type="password" id="registerPassword" name="registerPassword" pattern="[a-zA-Z0-9-]+"  minlength=8 required > <br><br>
     First Name &nbsp<input type="text" id="registerFirstName" name="registerFirstName" required > <br><br>

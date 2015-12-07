@@ -22,6 +22,7 @@
 			session_start (); // Need this in each file before $_SESSION
 			$_SESSION ['loginError'] = "";
 			$_SESSION ['registrationError'] = "";
+			$_SESSION ['addNewMovieError'] = "";
 
 			if (isset ( $_SESSION ["user"] )) {
 				$loggedInUsername = $_SESSION ["user"];
@@ -42,7 +43,7 @@
 		</div>
 		<br>
 			<div id="container">
-				<form id="searchForm" action="http://localhost/github/337final/review.php" method="post">
+				<form id="searchForm" action="review.php" method="post">
 						<input type="submit" id="searchButton" name="searchButton" value="Search">
 					<input type="search" id="searchKey" name="searchKey" oninput="displayMovies()">
 				</form>

@@ -32,7 +32,7 @@
 	$title = $_SESSION["title"];
 	$modelMethods = new Model();
 	$exists = $modelMethods->titleExists($title);
-	if($exists == 1){
+	if($exists === FALSE){
 		header ( "Location:error.php" );
 		exit;
 	}

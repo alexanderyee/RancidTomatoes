@@ -2,7 +2,7 @@
 /*Name: Alex Yee, Bijan Anjavi
   Course: CSC 337
   TA(s): Hasanain Jamal
-  Description: model for Rancid Tomatoes Enahcned database
+  Description: model for Rancid Tomatoes Enhanced database
  */
 class Model {
   private $conn;
