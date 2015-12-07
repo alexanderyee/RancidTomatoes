@@ -28,9 +28,9 @@ CREATE TABLE users (
 	username varchar(64) NOT NULL default '' UNIQUE,
 	hash varchar(255) NOT NULL default ''
 );
-INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('The Princess Bride', 'uploads/princessbride.png', 'Rob Reiner', 'PG', 95, 1987, 98, '54,132,596');
+INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('The Princess Bride', 'uploads/theprincessbride.png', 'Rob Reiner', 'PG', 95, 1987, 98, '54,132,596');
 INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('TMNT', 'uploads/tmnt.png', 'Kevin Munroe', 'PG', 33, 2007, 90, '336,180');
-INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Garfield: A Tail of Two Kitties', 'uploads/garfield.png', 'Tim Hill', 'PG', 100, 2006, 78, '12,316,180');
+INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Garfield: A Tail of Two Kitties', 'uploads/garfieldatailoftwokitties.png', 'Tim Hill', 'PG', 100, 2006, 78, '12,316,180');
 INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Mortal Kombat', 'uploads/mortalkombat.png', 'Paul Anderson', 'PG-13', 74, 1995, 74, '9,001');
 INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Teenage Mutant Ninja Turtles II: The Secret of the Ooze', 'uploads/tmnt2.png', 'Michael Pressman', 'PG-13', 36, 1991, 88, '666,666');
 INSERT INTO users(username, hash) VALUES('eman', '123918asdfhaskj');

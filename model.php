@@ -153,7 +153,10 @@ class Model {
     $stmh->bindParam ( ':title', $title );
     $stmh->execute ();
     $stmh->fetch ();
-    return (int) ($stmh->rowCount () / $stmt->rowCount () * 100);
+    if($stmh->rowCount () == 0)
+      return 0;
+    else
+      return (int) ($stmh->rowCount () / $stmt->rowCount () * 100);
   }
 }
 ?>
