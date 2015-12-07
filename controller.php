@@ -68,7 +68,6 @@ elseif (isset ( $_POST ['logout'] )) { //NOT NEEDED FOR OUR IMPLEMENTATION OF LO
 	$imageFileName = "uploads/" . $fileTitle . ".png";
 	$director = htmlspecialchars(trim($_POST ['newDirector']));
 	$mpaa = htmlspecialchars(trim($_POST ['newRating']));
-	$score = htmlspecialchars(trim($_POST ['newScore']));
 	$year = htmlspecialchars(trim($_POST ['newYear']));
 	$runtime = htmlspecialchars(trim($_POST ['newRuntime']));
 	$boxOffice = htmlspecialchars(trim($_POST ['newBoxOffice']));
@@ -78,7 +77,7 @@ elseif (isset ( $_POST ['logout'] )) { //NOT NEEDED FOR OUR IMPLEMENTATION OF LO
 		$_SESSION ['addNewMovieError'] = 'The movie already exists in our database';
 		header ("Location: addNewMovie.php");
 	} else {
-			$modelMethods->addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice);
+			$modelMethods->addNewMovie($title, $imageFileName, $director, $mpaa, $year, $runtime, $boxOffice);
 			session_start ();
 			$_SESSION["title"] = $title;
 			header ( "Location: review.php" );

@@ -29,7 +29,7 @@ class Model {
   /*Description: returns the overall info from the title table for a specific movie as an associative array.*/
   public function getOverallInfoFor($title){
     $stmt = $this->conn->prepare (
-        "SELECT imageFileName, director, mpaaRating, score, year, runtime, boxOffice
+        "SELECT imageFileName, director, mpaaRating, year, runtime, boxOffice
          FROM titles
          WHERE title = :title" );
     $stmt->bindParam ( 'title', $title );
@@ -60,15 +60,14 @@ class Model {
     return $reviewImage;
   }
   /*Description: adds a new movie to the database, to the title table.*/
-  public function addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice){
+  public function addNewMovie($title, $imageFileName, $director, $mpaa, $year, $runtime, $boxOffice){
   	$stmt = $this->conn->prepare (
-				"INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice)
-				VALUES(:title, :imageFileName, :director, :mpaa, :score, :year, :runtime, :boxOffice); ");
+				"INSERT INTO titles(title, imageFileName, director, mpaaRating, year, runtime, boxOffice)
+				VALUES(:title, :imageFileName, :director, :mpaa, :year, :runtime, :boxOffice); ");
 		$stmt->bindParam ( 'title', $title );
     $stmt->bindParam ( 'imageFileName', $imageFileName );
 		$stmt->bindParam ( 'director', $director );
 		$stmt->bindParam ( 'mpaa', $mpaa );
-		$stmt->bindParam ( 'score', $score );
 		$stmt->bindParam ( 'year', $year );
 		$stmt->bindParam ( 'runtime', $runtime );
 		$stmt->bindParam ( 'boxOffice', $boxOffice );

@@ -26,7 +26,6 @@
 				<input class="newRadioField" type="radio" id="PG-13" name="newRating" value="PG-13" required>PG-13
 				<input class="newRadioField" type="radio" id="R" name="newRating" value="R" required>R
 			</div><br>
-			<div class="newInputField"><span class="newText">Score</span><input class="newField" type="number" id="newScore" name="newScore" min="0" max="100" required></div><br><br>
 			<div class="newInputField"><span class="newText">Year</span><input class="newField" type="number" id="newYear" name="newYear"  min="1900" max="2017" required></div><br><br>
 			<div class="newInputField"><span class="newText">Runtime (Minutes)</span><input class="newField" type="number" id="newRuntime" name="newRuntime"  required></div><br><br>
 			<div class="newInputField"><span class="newText">Box Office</span><input class="newField" type="number" id="newBoxOffice" name="newBoxOffice" min="0" required></div><br><br>
