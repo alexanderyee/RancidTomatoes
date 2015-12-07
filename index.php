@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-
+<!--
+	Name: Alex Yee, Bijan Anjavi
+  Course: CSC 337
+  TA(s): Hasanain Jamal
+  Description: Home page for Rancid Tomatoes Enhanced
+-->
 <html>
-
 <head>
 	<title>Rancid Tomatoes Enhanced | Home</title>
 	<meta charset="utf-8" />
 	<link href="main.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
 	<div id="overallContent">
 		<div id="banner">
@@ -15,7 +18,6 @@
 		</div>
 		<h1>Rancid Tomatoes Enhanced</h1>
 		<div id="nav">
-
 			<?php
 			session_start (); // Need this in each file before $_SESSION
 			$_SESSION ['loginError'] = "";
@@ -55,11 +57,9 @@
 					<div id="adText"><i>Critics are hailing it as the must-see film of the century...</i></div>
 					<a href="review.php?adTitle=Garfield: A Tail of Two Kitties"><img id="adImage" src="images/ad.png" alt="Garfield Ad"></a> <!--STILL NEED TO TEST !-->
 				</div>
-
 	  	</div>
 			<p id="footer">By Alex Yee &amp Bijan Anjavi</p>
 	</div>
-
 	<script>
 		function displayMovies() {
 			var searchKey = document.getElementById("searchKey").value;
@@ -87,9 +87,6 @@
 			xhttp.open("GET", "movieSearch.php?searchKey=" + searchKey, true);
 			xhttp.send();
 		}
-
 	</script>
-
 </body>
-
 </html>

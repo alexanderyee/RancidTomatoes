@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-
+<!--
+	Name: Alex Yee, Bijan Anjavi
+  Course: CSC 337
+  TA(s): Hasanain Jamal
+  Description: Log in page for existing users for Rancid Tomatoes Enhanced
+-->
 <html>
-
 <head>
 	<title>Rancid Tomatoes Enhanced | Login</title>
 	<meta charset="utf-8" />
 	<link href="main.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
 	<div id="overallContent">
 		<div id="banner">
@@ -23,10 +26,6 @@
 		      echo $_SESSION ['loginError']; // session needs a login error message
 		?>
     </form>
-
 	</div>
-
-
 </body>
-
 </html>

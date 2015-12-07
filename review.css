@@ -1,14 +1,8 @@
-/*Name: Bijan Anjavi
+/*Name: Alex Yee, Bijan Anjavi
   Course: CSC 337
-  TA(s): Hasanain Jamal, Dilan Jenkins
-  Description: Styling sheet for movie.php
-
-
-
-
-  STILL A LOT TO FIX, WITH ALIGNING FORMS INPUTS STYLE ETC - FIX AFTER DATABASE + PHP
+  TA(s): Hasanain Jamal
+  Description: Styling sheet for review.php
  */
-
 body {
   background-image: url("images/moviebg.png");
   font-family: Arial, Helvetica, sans-serif;

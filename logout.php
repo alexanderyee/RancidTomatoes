@@ -1,7 +1,11 @@
 <!DOCTYPE html>
-
+<!--
+	Name: Alex Yee, Bijan Anjavi
+  Course: CSC 337
+  TA(s): Hasanain Jamal
+  Description: Log out page for existing users for Rancid Tomatoes Enhanced
+-->
 <html>
-
 <head>
 	<title>Rancid Tomatoes Enhanced | Logout</title>
 	<meta charset="utf-8" />

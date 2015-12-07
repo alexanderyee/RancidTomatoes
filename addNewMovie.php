@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-
+<!--
+	Name: Alex Yee, Bijan Anjavi
+  Course: CSC 337
+  TA(s): Hasanain Jamal
+  Description: Add New Movie page for Rancid Tomatoes Enhanced, only accessible for logged in users
+-->
 <html>
-<!--REQUIREMENTS OF SPEC NOT MET - ADD SOME MORE ERROR CHECKING, HTML CHARS, ETC After Formatting Views - W
-
-
-MAKE SURE TO GET THE USERNAME OF THE USER LOGGED IN WHILE ADDING A movieREVIEW FOR USE IN POST - reviewerID and username are the same
- -->
 <head>
 	<title>Rancid Tomatoes Enhanced | Add New Movie</title>
 	<meta charset="utf-8" />
 	<link href="main.css" rel="stylesheet" type="text/css">
 </head>
-
 <body>
 	<div id="overallContent">
 		<div id="banner">
 			<a  href="index.php"><img src="images/rancidbanner.png" alt="Rancid Tomatoes"></a>
 		</div>
 		<h1>Add New Movie</h1>
-    <form id="newForm" action="controller.php" method="post" enctype="multipart/form-data"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
+    <form id="newForm" action="controller.php" method="post" enctype="multipart/form-data">
     	<div class="newInputField"><span class="newText">Title</span><input class="newField" type="text" id="newTitle" name="newTitle"  required></div><br><br>
 			<div class="newInputField"><span class="newText">Director</span><input class="newField" type="text" id="newDirector" name="newDirector"  required></div><br><br>
 			<div class="newInputField"><span class="newText">MPAA Rating</span>
@@ -36,8 +35,5 @@ MAKE SURE TO GET THE USERNAME OF THE USER LOGGED IN WHILE ADDING A movieREVIEW F
     	<input type="submit" id="newMovieButton" name="newMovieButton" value="Add Movie">
     </form>
 	</div>
-
-
 </body>
-
 </html>

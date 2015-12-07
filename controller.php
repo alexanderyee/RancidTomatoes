@@ -1,10 +1,9 @@
 <?php
-/*Name: Bijan Anjavi, Alex Yee
+/*Name: Alex Yee, Bijan Anjavi
   Course: CSC 337
-  TA(s): Hasanain Jamal, Dilan Jenkins
-  Description: movieSearch.php gets the array from getArrayOfTitles.php and uses it
-  to construct a JSONArray representation of all movie titles matching the searchKey
-  entered by the user.
+  TA(s): Hasanain Jamal
+  Description: controller for Rancid Tomatoes Enhanced, interacts between client input
+	and database
  */
 require_once("model.php");
 $modelMethods = new Model();
@@ -19,14 +18,12 @@ if (isset ( $_POST ['loginUsername'] ) && isset ( $_POST ['loginPassword'] )) {
 		$_SESSION ['loginError'] = 'Invalid Account/Password';
 		header ( "Location: login.php" );
 		}
-
 } elseif (isset ( $_POST ['registerUsername'] ) && isset ( $_POST ['registerPassword'] )) {
 	$username = $_POST ['registerUsername']; //not seen by user in HTML view
 	$password = $_POST ['registerPassword']; //not seen by user in HTML view
  	$firstname= htmlspecialchars(trim($_POST ['registerFirstName']));
 	$lastname = htmlspecialchars(trim($_POST ['registerLastName']));
 	$publication = htmlspecialchars(trim($_POST ['registerPublication']));
-
 	if ($modelMethods->usernameExists($username)){
 		session_start ();
 		$_SESSION ['registerError'] = 'Username has already been taken';
@@ -38,36 +35,30 @@ if (isset ( $_POST ['loginUsername'] ) && isset ( $_POST ['loginPassword'] )) {
 		header ( "Location: index.php" );
 	}
 }
-elseif (isset ( $_POST ['logout'] )) {
+elseif (isset ( $_POST ['logout'] )) { //NOT NEEDED FOR OUR IMPLEMENTATION OF LOGOUT
 	session_start (); // to ensure you are using same session
 	session_destroy (); // destroy the session so $SESSION['anything'] is not set
 	header ( "Location: index.php" );
-
 } elseif (isset ($_POST ['newTitle'])) {
 	$title = htmlspecialchars(trim($_POST ['newTitle']));
-
-	//image
+	//UPLOAD IMAGE
 	if ( !isset($_FILES['file']['error']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK )
 	  die( "Upload failed with error" );
 	if ( !$modelMethods->isPNG( $_FILES['file']['tmp_name']) )
 	  die( "Cannot upload the file as it is not a PNG file" );
-
-
 		$fileTitle = preg_replace('/\s+/', '', $title); //remove spaces
 		$target_dir = "C:/xampp/htdocs/github/337final/uploads/"; //replace with your own absolute path to the upload folder, also make sure to modify permissions
 		$target_file = $target_dir . $fileTitle . ".png";
 		$uploadOk = 1;
-
-		// Check if file already exists
+		// if file already exists
 		if (file_exists($target_file)) {
-		    echo "Sorry, file already exists.";
+		    echo "File already exists.";
 		    $uploadOk = 0;
 		}
-
-		// Check if $uploadOk is set to 0 by an error
+		// if $uploadOk is set to 0
 		if ($uploadOk == 0) {
-		    echo "Sorry, your file was not uploaded.";
-		// if everything is ok, try to upload file
+		    echo "File was not uploaded.";
+		// try to upload file
 		} else {
 		    if (move_uploaded_file($_FILES["file"]["tmp_name"], $target_file)) {
 		        echo "The file ". basename( $_FILES["file"]["name"]). " has been uploaded.";
@@ -75,27 +66,18 @@ elseif (isset ( $_POST ['logout'] )) {
 		        echo "Sorry, there was an error uploading your file.";
 		    }
 		}
-
-
-
-
-
 	$imageFileName = "uploads/" . $fileTitle . ".png";
-
-
 	$director = htmlspecialchars(trim($_POST ['newDirector']));
 	$mpaa = htmlspecialchars(trim($_POST ['newRating']));
 	$score = htmlspecialchars(trim($_POST ['newScore']));
 	$year = htmlspecialchars(trim($_POST ['newYear']));
 	$runtime = htmlspecialchars(trim($_POST ['newRuntime']));
 	$boxOffice = htmlspecialchars(trim($_POST ['newBoxOffice']));
-	$boxOffice = number_format($boxOffice); //add commas to turn into a string with number format 
+	$boxOffice = number_format($boxOffice); //add commas to turn into a string with number format
 	$modelMethods->addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice);
-
 	session_start ();
 	$_SESSION["title"] = $title;
 	header ( "Location: review.php" );
-
 } elseif (isset ($_POST ['reviewTitle'])) {
 	$title = htmlspecialchars(trim($_POST ['reviewTitle']));
 	$review = htmlspecialchars(trim($_POST ['reviewReview']));
@@ -105,5 +87,4 @@ elseif (isset ( $_POST ['logout'] )) {
 	$_SESSION["title"] = $title;
 	header ("Location: review.php");
 }
-
 ?>
