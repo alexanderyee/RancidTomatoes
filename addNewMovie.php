@@ -34,7 +34,10 @@
     	<input type="submit" id="newMovieButton" name="newMovieButton" value="Add Movie">
 			<?php
 			      session_start ();
+						echo $_SESSION ['notLoggedInError'];
 			      echo $_SESSION ['addNewMovieError'];
+						$_SESSION ['notLoggedInError'] = "";
+						$_SESSION ['addNewMovieError'] = "";
 			?>
     </form>
 	</div>

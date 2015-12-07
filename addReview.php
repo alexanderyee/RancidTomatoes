@@ -29,6 +29,11 @@
 				</fieldset>
 				<br><br>
     <input type="submit" id="reviewButton" name="reviewButton" value="Add Review">
+		<?php
+					session_start ();
+					echo $_SESSION ['notLoggedInError'];
+					$_SESSION ['notLoggedInError'] = "";
+		?>
     </form>
 	</div>
 </body>

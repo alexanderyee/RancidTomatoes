@@ -23,6 +23,7 @@
 			$_SESSION ['loginError'] = "";
 			$_SESSION ['registrationError'] = "";
 			$_SESSION ['addNewMovieError'] = "";
+			$_SESSION ['notLoggedInError'] = "";
 
 			if (isset ( $_SESSION ["user"] )) {
 				$loggedInUsername = $_SESSION ["user"];

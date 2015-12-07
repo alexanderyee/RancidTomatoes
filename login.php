@@ -24,6 +24,7 @@
 		<?php
 					session_start ();
 		      echo $_SESSION ['loginError']; // session needs a login error message
+					$_SESSION ['loginError'] = "";
 		?>
     </form>
 	</div>
