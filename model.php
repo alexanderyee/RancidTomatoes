@@ -143,5 +143,16 @@ class Model {
     $mime = mime_content_type($filePath);
     return ( $mime === 'image/png' );
   }
+  public function getScore($title){
+    $stmt = $this->conn->prepare( 'SELECT rating FROM reviews WHERE title = :title' );
+    $stmt->bindParam ( ':title', $title );
+    $stmt->execute ();
+    $stmt->fetch ();
+    $stmh = $this->conn->prepare( 'SELECT rating FROM reviews WHERE title = :title AND rating = "FRESH"' );
+    $stmh->bindParam ( ':title', $title );
+    $stmh->execute ();
+    $stmh->fetch ();
+    return (int) ($stmh->rowCount () / $stmt->rowCount () * 100);
+  }
 }
 ?>

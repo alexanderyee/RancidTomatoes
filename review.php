@@ -40,7 +40,7 @@
   $overviewImageFileName = $overallInfo['imageFileName'];
 	$director = $overallInfo['director'];
 	$mpaaRating = $overallInfo['mpaaRating'];
-	$score = $overallInfo['score'];
+	$score = $modelMethods->getScore($title);//$overallInfo['score'];
 	$year = $overallInfo['year'];
 	$runtime = $overallInfo['runtime'];
 	$boxOffice = $overallInfo['boxOffice'];
