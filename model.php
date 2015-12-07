@@ -143,6 +143,7 @@ class Model {
     $mime = mime_content_type($filePath);
     return ( $mime === 'image/png' );
   }
+  /*Description: calculates dyanmic review score for a movie page*/
   public function getScore($title){
     $stmt = $this->conn->prepare( 'SELECT rating FROM reviews WHERE title = :title' );
     $stmt->bindParam ( ':title', $title );
