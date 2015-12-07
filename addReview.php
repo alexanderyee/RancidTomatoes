@@ -19,8 +19,9 @@ MAKE SURE TO GET THE USERNAME OF THE USER LOGGED IN WHILE ADDING A movieREVIEW F
 		</div>
 		<h1>Add Review</h1>
     <form id="reviewForm" action="controller.php" method="post"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
-    	Title &nbsp<input type="text" id="reviewTitle" name="reviewTitle"  required > <br><br>
-			Review <textarea rows="10" cols="50" id="reviewReview" name="reviewReview" maxlength=500 required></textarea> <!--ADD CANCEL EFFORT FEATURE -->
+    	Title <br><input type="text" id="reviewTitle" name="reviewTitle"  required > <br><br>
+			Review <br><textarea rows="10" cols="50" id="reviewReview" name="reviewReview" maxlength=500 required></textarea> <!--ADD CANCEL EFFORT FEATURE -->
+			<br><br>
 			<fieldset>
 				<legend>Rating</legend>
 					<input type="radio" id="reviewFresh" name="rating" value="FRESH" required> FRESH

@@ -21,11 +21,11 @@ if (isset ( $_POST ['loginUsername'] ) && isset ( $_POST ['loginPassword'] )) {
 		}
 
 } elseif (isset ( $_POST ['registerUsername'] ) && isset ( $_POST ['registerPassword'] )) {
-	$username = $_POST ['registerUsername'];
-	$password = $_POST ['registerPassword'];
- 	$firstname= trim($_POST ['registerFirstName']);
-	$lastname = trim($_POST ['registerLastName']);
-	$publication = trim($_POST ['registerPublication']);
+	$username = $_POST ['registerUsername']; //not seen by user in HTML view
+	$password = $_POST ['registerPassword']; //not seen by user in HTML view
+ 	$firstname= htmlspecialchars(trim($_POST ['registerFirstName']));
+	$lastname = htmlspecialchars(trim($_POST ['registerLastName']));
+	$publication = htmlspecialchars(trim($_POST ['registerPublication']));
 
 	if ($modelMethods->usernameExists($username)){
 		session_start ();
@@ -44,7 +44,7 @@ elseif (isset ( $_POST ['logout'] )) {
 	header ( "Location: index.php" );
 
 } elseif (isset ($_POST ['newTitle'])) {
-	$title = trim($_POST ['newTitle']);
+	$title = htmlspecialchars(trim($_POST ['newTitle']));
 
 	//image
 	if ( !isset($_FILES['file']['error']) || $_FILES['file']['error'] !== UPLOAD_ERR_OK )
@@ -54,7 +54,7 @@ elseif (isset ( $_POST ['logout'] )) {
 
 
 		$fileTitle = preg_replace('/\s+/', '', $title); //remove spaces
-		$target_dir = "C:/xampp/htdocs/github/337final/uploads/";
+		$target_dir = "C:/xampp/htdocs/github/337final/uploads/"; //replace with your own absolute path to the upload folder, also make sure to modify permissions
 		$target_file = $target_dir . $fileTitle . ".png";
 		$uploadOk = 1;
 
@@ -83,12 +83,13 @@ elseif (isset ( $_POST ['logout'] )) {
 	$imageFileName = "uploads/" . $fileTitle . ".png";
 
 
-	$director = trim($_POST ['newDirector']);
-	$mpaa = trim($_POST ['newRating']);
-	$score = trim($_POST ['newScore']);
-	$year = trim($_POST ['newYear']);
-	$runtime = trim($_POST ['newRuntime']);
-	$boxOffice = trim($_POST ['newBoxOffice']);
+	$director = htmlspecialchars(trim($_POST ['newDirector']));
+	$mpaa = htmlspecialchars(trim($_POST ['newRating']));
+	$score = htmlspecialchars(trim($_POST ['newScore']));
+	$year = htmlspecialchars(trim($_POST ['newYear']));
+	$runtime = htmlspecialchars(trim($_POST ['newRuntime']));
+	$boxOffice = htmlspecialchars(trim($_POST ['newBoxOffice']));
+	$boxOffice = number_format($boxOffice); //add commas to turn into a string with number format 
 	$modelMethods->addNewMovie($title, $imageFileName, $director, $mpaa, $score, $year, $runtime, $boxOffice);
 
 	session_start ();
@@ -96,9 +97,9 @@ elseif (isset ( $_POST ['logout'] )) {
 	header ( "Location: review.php" );
 
 } elseif (isset ($_POST ['reviewTitle'])) {
-	$title = trim($_POST ['reviewTitle']);
-	$review = trim($_POST ['reviewReview']);
-	$rating = trim($_POST ['rating']);
+	$title = htmlspecialchars(trim($_POST ['reviewTitle']));
+	$review = htmlspecialchars(trim($_POST ['reviewReview']));
+	$rating = htmlspecialchars(trim($_POST ['rating']));
 	session_start ();
 	$modelMethods->addReview($title, $_SESSION["user"], $review, $rating);
 	$_SESSION["title"] = $title;

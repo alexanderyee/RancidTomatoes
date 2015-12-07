@@ -21,23 +21,18 @@ CREATE TABLE titles (
 	score int NOT NULL,
 	year int NOT NULL,
 	runtime int NOT NULL,
-	boxOffice bigint NOT NULL
+	boxOffice varchar(100) NOT NULL
 );
 CREATE TABLE users (
 	id int(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	username varchar(64) NOT NULL default '' UNIQUE,
 	hash varchar(255) NOT NULL default ''
 );
-
-##INSERT NEW TITLES HERE
-INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('The Princess Bride', 'uploads/princessbride.png', 'Rob Reiner', 'PG', 95, 1987, 98, 54132596);
-INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('TMNT', 'uploads/tmnt.png', 'Kevin Munroe', 'PG', 33, 2007, 90, 336180);
-INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Garfield: A Tail of Two Kitties', 'uploads/garfield.png', 'Tim Hill', 'PG', 100, 2006, 78, 12316180);
-INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Mortal Kombat', 'uploads/mortalkombat.png', 'Paul Anderson', 'PG-13', 74, 1995, 74, 9001);
-INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Teenage Mutant Ninja Turtles II: The Secret of the Ooze', 'uploads/tmnt2.png', 'Michael Pressman', 'PG-13', 36, 1991, 88, 666666);
-
-
-#INSERT a new user, INSERT that user into the reviewers table (username == reviewerID), INSERT ALL REVIEWS
+INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('The Princess Bride', 'uploads/princessbride.png', 'Rob Reiner', 'PG', 95, 1987, 98, '54,132,596');
+INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('TMNT', 'uploads/tmnt.png', 'Kevin Munroe', 'PG', 33, 2007, 90, '336,180');
+INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Garfield: A Tail of Two Kitties', 'uploads/garfield.png', 'Tim Hill', 'PG', 100, 2006, 78, '12,316,180');
+INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Mortal Kombat', 'uploads/mortalkombat.png', 'Paul Anderson', 'PG-13', 74, 1995, 74, '9,001');
+INSERT INTO titles(title, imageFileName, director, mpaaRating, score, year, runtime, boxOffice) VALUES('Teenage Mutant Ninja Turtles II: The Secret of the Ooze', 'uploads/tmnt2.png', 'Michael Pressman', 'PG-13', 36, 1991, 88, '666,666');
 INSERT INTO users(username, hash) VALUES('eman', '123918asdfhaskj');
 INSERT INTO reviewers(reviewerID, firstname, lastname, publication) VALUES('eman', 'Emanuel', 'Levy', 'emanuellevy.com');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('The Princess Bride', 'eman', 'One of Reiner''s most entertaining films, effective as a swashbuckling epic, romantic fable, and satire of these genres.', 'FRESH');
@@ -45,31 +40,22 @@ INSERT INTO reviews(title, reviewerID, review, rating) VALUES('TMNT', 'eman', 'T
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Garfield: A Tail of Two Kitties', 'eman', 'I consider myself to be a stoic man, but the sheer beauty of this film was enough to bring me to tears.', 'FRESH');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Teenage Mutant Ninja Turtles II: The Secret of the Ooze', 'eman', 'The sequel plays things very safe.', 'ROTTEN');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Mortal Kombat', 'eman', 'cheesy but still, kick ass!', 'FRESH');
-
-
-#INSERT a new user, INSERT that user into the reviewers table (username == reviewerID), INSERT ALL REVIEWS
 INSERT INTO users(username, hash) VALUES('variety', '1239shaskj');
 INSERT INTO reviewers(reviewerID, firstname, lastname, publication) VALUES('variety', 'Variety', 'Staff', 'Variety Magazine');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('The Princess Bride', 'variety', 'Based on William Goldman''s novel, this is a post-modern fairy tale that challenges and affirms the conventions of a genre that may not be flexible enough to support such horseplay.', 'ROTTEN');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('TMNT', 'variety', 'Ditching the cheeky, self-aware wink that helped to excuse the concept''s inherent corniness, the movie attempts to look polished and ''cool.'' ', 'ROTTEN');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Garfield: A Tail of Two Kitties', 'variety', 'This film - rather, this immaculate work of art - transcends all time and space. It is a gift, and we must cherish it as such.', 'FRESH');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Teenage Mutant Ninja Turtles II: The Secret of the Ooze', 'variety', 'One can have a reasonably amusing time with this predictable sequel, which is a bit longer on action and shorter on wit and character than the original.', 'ROTTEN');
-INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Mortal Kombat', 'variety', 'Like watching a lot of sweaty fist fights while trapped in the world's loudest night club.', 'FRESH');
-
-#INSERT a new user, INSERT that user into the reviewers table (username == reviewerID), INSERT ALL REVIEWS FOR THAT user 
+INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Mortal Kombat', 'variety', 'Like watching a lot of sweaty fist fights while trapped in the world''s loudest night club.', 'FRESH');
 INSERT INTO users(username, hash) VALUES('jon', 'asdfiosad');
 INSERT INTO reviewers(reviewerID, firstname, lastname, publication) VALUES('jon', 'Jonathan', 'Rosenbaum', 'Chicago Reader');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('The Princess Bride', 'jon', 'Rob Reiner''s friendly 1987 fairy-tale adventure delicately mines the irony inherent in its make-believe without ever undermining the effectiveness of the fantasy.', 'FRESH');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('TMNT', 'jon', 'It stinks!', 'ROTTEN');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Garfield: A Tail of Two Kitties', 'jon', 'Garfield: A Tail of Two Kitties is perhaps the single greatest piece of American cinema of the 21st century, if not of all time. My only critique with this movie is that after watching it, I realized that I will never see a better film in my lifetime.', 'FRESH');
-
 INSERT INTO users(username, hash) VALUES('jay', 'fjeiwaojfew23');
-INSERT INTO reviewers(reviewerID, firstname, lastname, publication) VALUES('jay', 'Jay', 'Sherman', '(unemployed)');
-INSERT INTO reviews(title, reviewerID, review, rating) VALUES('The Princess Bride', 'jon', 'One of Reiner's most entertaining films, effective as a swashbuckling epic, romantic fable, and satire of these genres.', 'FRESH');
-INSERT INTO reviews(title, reviewerID, review, rating) VALUES('TMNT', 'jay', 'It really freakin' stinks!', 'ROTTEN');
+INSERT INTO reviewers(reviewerID, firstname, lastname, publication) VALUES('jay', 'Jay', 'Sherman', 'unemployed');
+INSERT INTO reviews(title, reviewerID, review, rating) VALUES('The Princess Bride', 'jay', 'One of Reiners most entertaining films, effective as a swashbuckling epic, romantic fable, and satire of these genres.', 'FRESH');
+INSERT INTO reviews(title, reviewerID, review, rating) VALUES('TMNT', 'jay', 'It really freakin stinks!', 'ROTTEN');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Mortal Kombat', 'jay', 'Delightfully horrible.  When the overseer of the island tournament throws out catch phrases from the retro arcade game, you can't help but to cringe in delight.', 'FRESH');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Teenage Mutant Ninja Turtles II: The Secret of the Ooze', 'jay', 'This lacks the darkness and subtlety that makes the first film so good, and so adult, but its simplified plot and gags will appeal to the under tens.', 'FRESH');
 INSERT INTO reviews(title, reviewerID, review, rating) VALUES('Garfield: A Tail of Two Kitties', 'jay', 'I consider myself to be a stoic man, but the sheer beauty of this film was enough to bring me to tears.', 'FRESH');
-
-
-

@@ -23,12 +23,12 @@
   <?php
 	session_start ();
 	if(isset($_GET["adTitle"])){ //clicked on ad
-		$_SESSION["title"] = trim($_GET["adTitle"]);
+		$_SESSION["title"] = htmlspecialchars(trim($_GET["adTitle"]));
 		unset( $_GET["adTitle"] );
 
 	}
 	if(isset($_POST["searchKey"])) {
-		$_SESSION["title"] = trim($_POST["searchKey"]);
+		$_SESSION["title"] = htmlspecialchars(trim($_POST["searchKey"]));
 		unset( $_POST["searchKey"] );
 	}
  //assume sent by controller and session is not empty

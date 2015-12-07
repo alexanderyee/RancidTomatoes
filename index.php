@@ -57,7 +57,7 @@
 				</div>
 
 	  	</div>
-			<p id="footer">By Alex Yee & Bijan Anjavi</p>
+			<p id="footer">By Alex Yee &amp Bijan Anjavi</p>
 	</div>
 
 	<script>

@@ -79,4 +79,27 @@ width: auto;
   text-align: center;
   margin-top: 20px;
   font-size: .8em;
+  font-style: italic;
+}
+
+/*ADDNEWMOVIE*/
+
+#newForm {
+  width: 300px;
+  margin: auto;
+}
+.newInputField {
+  clear: both;
+  width: auto;
+  height: auto;
+  margin: 8px;
+
+}
+
+.newText {
+  float: left;
+}
+
+.newField {
+  float: right;
 }

@@ -19,20 +19,21 @@ MAKE SURE TO GET THE USERNAME OF THE USER LOGGED IN WHILE ADDING A movieREVIEW F
 		</div>
 		<h1>Add New Movie</h1>
     <form id="newForm" action="controller.php" method="post" enctype="multipart/form-data"> <!--MIGHT NEED TO CHANGE THE ACTION, STILL FIGURING OUT CONTROLLER AND LOGIN-->
-    	Title &nbsp<input type="text" id="newTitle" name="newTitle"  required > <br><br>
-
-
-			Director &nbsp<input type="text" id="newDirector" name="newDirector"  required > <br><br>
-			Rating &nbsp<input type="text" id="newRating" name="newRating"  required > <br><br>
-			Score &nbsp<input type="number" id="newScore" name="newScore" min="0" max="100" required > <br><br>
-			Year &nbsp<input type="number" id="newYear" name="newYear"  required > <br><br>
-			Runtime &nbsp<input type="number" id="newRuntime" name="newRuntime"  required > <br><br>
-			Box Office &nbsp<input type="number" id="newBoxOffice" name="newBoxOffice" min="0" required > <br><br>
-
-			Select file to upload:
-			<input type="file" id="file" name="file" required> <br><br>
-    <input type="submit" id="newMovieButton" name="newMovieButton" value="Add Movie">
-
+    	<div class="newInputField"><span class="newText">Title</span><input class="newField" type="text" id="newTitle" name="newTitle"  required></div><br><br>
+			<div class="newInputField"><span class="newText">Director</span><input class="newField" type="text" id="newDirector" name="newDirector"  required></div><br><br>
+			<div class="newInputField"><span class="newText">MPAA Rating</span>
+				<input class="newRadioField" type="radio" id="G" name="newRating" value="G" required>G
+				<input class="newRadioField" type="radio" id="PG" name="newRating" value="PG" required>PG
+				<input class="newRadioField" type="radio" id="PG-13" name="newRating" value="PG-13" required>PG-13
+				<input class="newRadioField" type="radio" id="R" name="newRating" value="R" required>R
+			</div><br>
+			<div class="newInputField"><span class="newText">Score</span><input class="newField" type="number" id="newScore" name="newScore" min="0" max="100" required></div><br><br>
+			<div class="newInputField"><span class="newText">Year</span><input class="newField" type="number" id="newYear" name="newYear"  min="1900" max="2017" required></div><br><br>
+			<div class="newInputField"><span class="newText">Runtime (Minutes)</span><input class="newField" type="number" id="newRuntime" name="newRuntime"  required></div><br><br>
+			<div class="newInputField"><span class="newText">Box Office</span><input class="newField" type="number" id="newBoxOffice" name="newBoxOffice" min="0" required></div><br><br>
+			<div class="newInputField"><span class="newText">Select file to upload:</span><input class="newText" type="file" id="file" name="file" required></div><br><br>
+			<br><br>
+    	<input type="submit" id="newMovieButton" name="newMovieButton" value="Add Movie">
     </form>
 	</div>
 
